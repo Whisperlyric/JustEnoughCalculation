@@ -4,7 +4,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import me.towdium.jecalculation.JustEnoughCalculation;
 import me.towdium.jecalculation.data.label.ILabel;
 import me.towdium.jecalculation.data.structure.RecordPlayer;
-import me.towdium.jecalculation.mixin.JecaPlayerRecordAccessor;
+import me.towdium.jecalculation.JecaPlayerRecordAccessor;
 import me.towdium.jecalculation.utils.wrappers.Pair;
 import me.towdium.jecalculation.annotation.MethodsReturnNonnullByDefault;
 import net.fabricmc.loader.api.FabricLoader;

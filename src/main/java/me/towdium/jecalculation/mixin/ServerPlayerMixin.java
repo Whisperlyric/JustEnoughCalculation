@@ -1,6 +1,7 @@
 package me.towdium.jecalculation.mixin;
 
 import com.mojang.authlib.GameProfile;
+import me.towdium.jecalculation.JecaPlayerRecordAccessor;
 import me.towdium.jecalculation.data.structure.RecordPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;

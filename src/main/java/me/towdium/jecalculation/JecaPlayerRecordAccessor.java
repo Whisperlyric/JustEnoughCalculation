@@ -1,4 +1,4 @@
-package me.towdium.jecalculation.mixin;
+package me.towdium.jecalculation;
 
 import me.towdium.jecalculation.data.structure.RecordPlayer;
 

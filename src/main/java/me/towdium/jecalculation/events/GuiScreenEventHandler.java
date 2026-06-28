@@ -26,9 +26,6 @@ public class GuiScreenEventHandler {
     protected JecaGui gui = null;
     protected InventorySummary cachedInventory;
     protected Trio<List<? extends ClientTooltipComponent>, Integer, Integer> cachedTooltipEvent;
-    private boolean mousePressed = false;
-    private int mouseButton = 0;
-    private double mouseX = 0, mouseY = 0;
 
     public GuiScreenEventHandler() {
         registerEvents();

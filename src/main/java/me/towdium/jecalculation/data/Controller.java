@@ -203,7 +203,10 @@ public class Controller {
 
     public static void saveToLocal() {
         if (rPlayerClient == null) return;
-        Utilities.config().mkdirs();
+        File configDir = Utilities.config();
+        if (!configDir.mkdirs() && !configDir.exists()) {
+            JustEnoughCalculation.logger.warn("Failed to create config directory: {}", configDir);
+        }
         File configFile = new File(Utilities.config(), "recipes.json");
         Utilities.Json.write(rPlayerClient.serialize(), configFile);
     }

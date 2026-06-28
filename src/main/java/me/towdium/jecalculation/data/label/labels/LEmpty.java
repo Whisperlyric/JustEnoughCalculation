@@ -72,7 +72,7 @@ public class LEmpty implements ILabel {
     }
 
     @Override
-    public void getToolTip(List<@NotNull String> existing, boolean detailed) {
+    public void getToolTip(@NotNull List<@NotNull String> existing, boolean detailed) {
     }
 
     @Override
