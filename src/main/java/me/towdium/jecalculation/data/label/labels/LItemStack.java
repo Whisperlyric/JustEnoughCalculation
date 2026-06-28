@@ -146,7 +146,7 @@ public class LItemStack extends LStack<Item> {
         if (l instanceof LItemStack lis) {
             if (item != lis.item) return false;
             if (!fNbt && !lis.fNbt) {
-                if (nbt != null ? !nbt.equals(lis.nbt) : lis.nbt != null) return false;
+                if (!Objects.equals(nbt, lis.nbt)) return false;
             }
             if (!fMeta) {
                 // check meta via item damage
@@ -170,7 +170,7 @@ public class LItemStack extends LStack<Item> {
     public static List<ILabel> fallback(List<ILabel> is, @Nullable Class<?> context) {
         List<ILabel> ret = new ArrayList<>();
         if (is.size() == 1) {
-            ILabel label = is.get(0);
+            ILabel label = is.getFirst();
             if (label instanceof LItemStack lis) {
                 if (!lis.fNbt && !lis.fMeta) {
                     ret.add(lis.copy().setFMeta(true));

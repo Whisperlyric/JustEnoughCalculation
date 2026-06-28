@@ -52,14 +52,14 @@ public class WScroll implements IWidget {
 
     @Override
     public boolean onMouseDragged(JecaGui gui, int xMouse, int yMouse, int xDrag, int yDrag) {
-        if (active) setCurrent(yMouse - yPos - height / 2, true);
+        if (active) setCurrent(yMouse - yPos - height / 2);
         return active;
     }
 
     @Override
     public boolean onMouseClicked(JecaGui gui, int xMouse, int yMouse, int button) {
         active = mouseIn(xMouse, yMouse);
-        if (active) setCurrent(yMouse - yPos - height / 2, true);
+        if (active) setCurrent(yMouse - yPos - height / 2);
         return active;
     }
 
@@ -86,8 +86,8 @@ public class WScroll implements IWidget {
         return this;
     }
 
-    private void setCurrent(int pos, boolean notify) {
-        setCurrent(pos / (float) (ySize - height), notify);
+    private void setCurrent(int pos) {
+        setCurrent(pos / (float) (ySize - height), true);
     }
 
     public float getCurrent() {

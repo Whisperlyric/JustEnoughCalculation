@@ -66,7 +66,7 @@ public class GuiScreenEventHandler {
     }
 
     public List<Rect2i> getGuiAreas() {
-        if (overlayHandler != null && gui != null && isScreenValidForOverlay(Minecraft.getInstance().screen)) {
+        if (Minecraft.getInstance().screen != null && overlayHandler != null && gui != null && isScreenValidForOverlay(Minecraft.getInstance().screen)) {
             return overlayHandler.getGuiExtraAreas(gui.getGuiLeft(), gui.getGuiTop());
         }
         return Collections.emptyList();

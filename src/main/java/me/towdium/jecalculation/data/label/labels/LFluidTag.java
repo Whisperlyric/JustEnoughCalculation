@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -23,11 +24,11 @@ public class LFluidTag extends LTag<Fluid> {
     }
     public static final String IDENTIFIER = "fluidTag";
 
-    public LFluidTag(TagKey<Fluid> name) {
+    public LFluidTag(TagKey<@NotNull Fluid> name) {
         super(name);
     }
 
-    public LFluidTag(TagKey<Fluid> name, long amount) {
+    public LFluidTag(TagKey<@NotNull Fluid> name, long amount) {
         super(name, amount);
     }
 
@@ -40,7 +41,7 @@ public class LFluidTag extends LTag<Fluid> {
     }
 
     @Override
-    protected Registry<Fluid> getRegistry() {
+    protected Registry<@NotNull Fluid> getRegistry() {
         return BuiltInRegistries.FLUID;
     }
 

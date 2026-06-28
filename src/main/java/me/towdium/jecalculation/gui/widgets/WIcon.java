@@ -22,7 +22,7 @@ public class WIcon extends WTooltip {
         this(xPos, yPos, xSize, ySize, res.one, res.two, null);
     }
 
-    public WIcon(int xPos, int yPos, int xSize, int ySize, Resource.ResourceGroup res, String name) {
+    public WIcon(int xPos, int yPos, int xSize, int ySize, Resource.ResourceGroup res, @Nullable String name) {
         this(xPos, yPos, xSize, ySize, res.one, res.two, name);
     }
 

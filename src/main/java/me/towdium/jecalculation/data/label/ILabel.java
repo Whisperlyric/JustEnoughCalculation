@@ -18,6 +18,7 @@ import net.minecraft.world.level.material.Fluids;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.io.Serial;
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -146,7 +147,7 @@ public interface ILabel {
         public ILabel deserialize(CompoundTag nbt) {
             String s = nbt.getStringOr(KEY_IDENTIFIER, "");
             Function<CompoundTag, ILabel> func = idToData.get(s);
-            if (func == null) JustEnoughCalculation.logger.warn("Unrecognized identifier \"" + s + "\", abort");
+            if (func == null) JustEnoughCalculation.logger.warn("Unrecognized identifier \"{}\", abort", s);
             else try {
                 return func.apply(nbt.getCompoundOrEmpty(KEY_CONTENT));
             } catch (SerializationException ignored) {
@@ -162,7 +163,7 @@ public interface ILabel {
         }
 
         public static class SerializationException extends RuntimeException {
-            @SuppressWarnings("serial")
+            @Serial
             private static final long serialVersionUID = 1L;
 
             public SerializationException(String s) {
@@ -184,10 +185,12 @@ public interface ILabel {
         }
 
         public static ILabel from(@Nullable Object o) {
-            if (o == null) return ILabel.EMPTY;
-            else if (o instanceof ILabel label) return label;
-            else if (o instanceof ItemStack) return new LItemStack((ItemStack) o);
-            return LPlaceholder.Converter.from(o);
+            return switch (o) {
+                case null -> ILabel.EMPTY;
+                case ILabel label -> label;
+                case ItemStack itemStack -> new LItemStack(itemStack);
+                default -> LPlaceholder.Converter.from(o);
+            };
         }
 
         public void register(ConverterFunction handler, Priority priority) {
@@ -196,7 +199,7 @@ public interface ILabel {
 
         public ILabel first(List<ILabel> labels, @Nullable Class<?> context) {
             List<ILabel> guess = guess(labels, context).one;
-            return guess.isEmpty() ? labels.get(0) : guess.get(0);
+            return guess.isEmpty() ? labels.getFirst() : guess.getFirst();
         }
 
         public Pair<List<ILabel>, List<ILabel>> guess(List<ILabel> labels, @Nullable Class<?> context) {

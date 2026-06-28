@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -24,11 +25,11 @@ public class LItemTag extends LTag<Item> {
     }
     public static final String IDENTIFIER = "itemTag";
 
-    public LItemTag(TagKey<Item> name) {
+    public LItemTag(TagKey<@NotNull Item> name) {
         super(name);
     }
 
-    public LItemTag(TagKey<Item> name, long amount) {
+    public LItemTag(TagKey<@NotNull Item> name, long amount) {
         super(name, amount);
     }
 
@@ -41,7 +42,7 @@ public class LItemTag extends LTag<Item> {
     }
 
     @Override
-    protected Registry<Item> getRegistry() {
+    protected Registry<@NotNull Item> getRegistry() {
         return BuiltInRegistries.ITEM;
     }
 

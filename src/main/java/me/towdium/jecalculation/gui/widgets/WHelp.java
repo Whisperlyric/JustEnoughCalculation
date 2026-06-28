@@ -116,7 +116,7 @@ public class WHelp extends WContainer {
             }
         }
 
-        public class Icon extends WTooltip {
+        public static class Icon extends WTooltip {
             public Icon() {
                 super("common.close");
             }

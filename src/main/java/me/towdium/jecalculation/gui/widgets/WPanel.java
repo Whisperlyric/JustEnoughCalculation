@@ -56,7 +56,7 @@ public class WPanel implements IWidget {
 
     @Override
     public boolean getLabelUnderMouse(int xMouse, int yMouse, Wrapper<ILabel> label) {
-        return false;
+        return IWidget.super.getLabelUnderMouse(xMouse, yMouse, label);
     }
 
     public boolean mouseIn(int x, int y) {

@@ -42,7 +42,9 @@ public class JustEnoughCalculation {
             registerClientEvents();
         }
 
-        Utilities.config().mkdirs();
+        if (!Utilities.config().mkdirs() && !Utilities.config().exists()) {
+            logger.warn("Failed to create config directory: {}", Utilities.config());
+        }
     }
 
     private void registerNetworkPackets() {

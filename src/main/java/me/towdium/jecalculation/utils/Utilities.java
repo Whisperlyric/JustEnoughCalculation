@@ -29,12 +29,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.charset.StandardCharsets;
 import java.text.BreakIterator;
 import java.text.DecimalFormat;
@@ -84,7 +86,7 @@ public class Utilities {
         return Objects.equals(t1.registry(), t2.registry()) && Objects.equals(t1.location(), t2.location());
     }
 
-    public static <T> Stream<Pair<TagKey<T>, Stream<T>>> getTags(Registry<T> registry) {
+    public static <T> Stream<Pair<TagKey<@NotNull T>, Stream<T>>> getTags(Registry<@NotNull T> registry) {
         return registry.getTags()
                 .map(named -> new Pair<>(named.key(), named.stream()
                         .map(Holder::value)));
@@ -94,6 +96,7 @@ public class Utilities {
         // JEI/REI compat removed - no-op
     }
 
+    @Nullable
     public static ILabel getLabelUnderMouse() {
         // JEI/REI compat removed
         return null;
@@ -108,6 +111,7 @@ public class Utilities {
         return false;
     }
 
+    @Nullable
     public static RecordPlayer getRecord(Player player) {
         return player instanceof JecaPlayerRecordAccessor accessor ? accessor.Jeca_getRecord() : null;
     }
@@ -125,9 +129,9 @@ public class Utilities {
         return new ItemStack(item, count);
     }
 
-    public static TagKey<Item> IRON_INGOTS = tag(Registries.ITEM, "iron_ingots");
+    public static TagKey<@NotNull Item> IRON_INGOTS = tag(Registries.ITEM, "iron_ingots");
 
-    public static <T> TagKey<T> tag(ResourceKey<? extends Registry<T>> key, String tag) {
+    public static <T> TagKey<@NotNull T> tag(ResourceKey<? extends @NotNull Registry<@NotNull T>> key, String tag) {
         return TagKey.create(key, Identifier.fromNamespaceAndPath(getTagNamespace(), tag));
     }
 
@@ -136,7 +140,7 @@ public class Utilities {
     }
 
     // MOD NAME
-    static <T> Optional<String> getModNameInternal(Registry<T> registry, T t) {
+    static <T> Optional<String> getModNameInternal(Registry<@NotNull T> registry, T t) {
         return Optional.ofNullable(registry.getKey(t))
                 .map(Identifier::getNamespace)
                 .map(s -> Identifier.DEFAULT_NAMESPACE.equals(s) ? "Minecraft" : getModName(s));
@@ -149,7 +153,7 @@ public class Utilities {
                     String[] words = id.replace("_", " ").split(" ");
                     StringBuilder sb = new StringBuilder();
                     for (String w : words) {
-                        if (sb.length() > 0) sb.append(" ");
+                        if (!sb.isEmpty()) sb.append(" ");
                         if (w.isEmpty()) continue;
                         sb.append(Character.toUpperCase(w.charAt(0)))
                           .append(w.substring(1).toLowerCase());
@@ -461,26 +465,16 @@ public class Utilities {
             try {
                 return TagParser.parseCompoundFully(s);
             } catch (CommandSyntaxException e) {
-                e.printStackTrace();
+                JustEnoughCalculation.logger.error("Failed to parse NBT compound", e);
                 return null;
             }
         }
 
         public static void write(CompoundTag nbt, File f) {
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(f);
+            try (FileOutputStream fos = new FileOutputStream(f)) {
                 fos.write(write(nbt).getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (fos != null) {
-                    try {
-                        fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                JustEnoughCalculation.logger.error("Failed to write NBT to file: {}", f, e);
             }
         }
 
@@ -578,7 +572,7 @@ public class Utilities {
     }
 
     public static class OffsetStack extends Stack<Pair<Integer, Integer>> {
-        @SuppressWarnings("serial")
+        @Serial
         private static final long serialVersionUID = 1L;
 
         public int x() {

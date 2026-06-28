@@ -5,10 +5,11 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class PCalculator implements CustomPacketPayload {
-    public static final Type<PCalculator> TYPE = new Type<>(Identifier.fromNamespaceAndPath("jecalculation", "calculator"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, PCalculator> CODEC = StreamCodec.of(
+    public static final Type<@NotNull PCalculator> TYPE = new Type<>(Identifier.fromNamespaceAndPath("jecalculation", "calculator"));
+    public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull PCalculator> CODEC = StreamCodec.of(
             PCalculator::encode, PCalculator::decode
     );
 
@@ -39,7 +40,7 @@ public class PCalculator implements CustomPacketPayload {
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

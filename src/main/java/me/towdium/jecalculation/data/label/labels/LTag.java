@@ -16,13 +16,11 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,13 +29,13 @@ import java.util.stream.Stream;
 public abstract class LTag<T> extends LContext<T> {
     public static final String KEY_NAME = "name";
 
-    protected TagKey<T> name;
+    protected TagKey<@NotNull T> name;
 
-    public LTag(TagKey<T> name) {
+    public LTag(TagKey<@NotNull T> name) {
         this(name, 1);
     }
 
-    public LTag(TagKey<T> name, long amount) {
+    public LTag(TagKey<@NotNull T> name, long amount) {
         super(amount, false);
         this.name = name;
     }
@@ -49,10 +47,10 @@ public abstract class LTag<T> extends LContext<T> {
 
     public LTag(CompoundTag nbt) {
         super(nbt);
-        name = TagKey.create(getRegistry().key(), Identifier.tryParse(nbt.getStringOr(KEY_NAME, "")));
+        name = TagKey.create(getRegistry().key(), Objects.requireNonNull(Identifier.tryParse(nbt.getStringOr(KEY_NAME, ""))));
     }
 
-    protected abstract Registry<T> getRegistry();
+    protected abstract Registry<@NotNull T> getRegistry();
 
     public static boolean mergeSame(ILabel a, ILabel b) {
         if (a instanceof LTag<?> lodA && b instanceof LTag<?> lodB) {
@@ -77,11 +75,11 @@ public abstract class LTag<T> extends LContext<T> {
         @SuppressWarnings("unchecked") List<LStack<T>> iss = is.stream().filter(i -> i instanceof LStack)
                 .map(i -> (LStack<T>) i).collect(Collectors.toList());
         if (iss.isEmpty() || iss.size() != is.size()) return Collections.emptyList();
-        LStack<T> lis = iss.get(0);
-        if (iss.stream().anyMatch(i -> i.getContext() != iss.get(0).getContext())) return Collections.emptyList();
-        HashSet<TagKey<T>> ids = new HashSet<>();
+        LStack<T> lis = iss.getFirst();
+        if (iss.stream().anyMatch(i -> i.getContext() != iss.getFirst().getContext())) return Collections.emptyList();
+        HashSet<TagKey<@NotNull T>> ids = new HashSet<>();
         long amount = lis.getAmount();
-        for (TagKey<T> i : lis.getContext().discover(lis))
+        for (TagKey<@NotNull T> i : lis.getContext().discover(lis))
             if (check(i, iss, biDir)) ids.add(i);
         return ids.stream().map(i -> lis.getContext().create(i, amount))
                 .collect(Collectors.toList());
@@ -92,10 +90,10 @@ public abstract class LTag<T> extends LContext<T> {
     }
 
     // check labels in the list suitable for the ore id
-    private static <T> boolean check(TagKey<T> id, List<LStack<T>> labels, boolean biDir) {
+    private static <T> boolean check(TagKey<@NotNull T> id, List<LStack<T>> labels, boolean biDir) {
         if (!id.isFor(Registries.ITEM))
             return false;
-        Stream<LStack<T>> ores = labels.get(0).getContext().discover(id);
+        Stream<LStack<T>> ores = labels.getFirst().getContext().discover(id);
         Optional<List<Item>> tag = BuiltInRegistries.ITEM.getTags()
                 .filter(named -> named.key().equals(id))
                 .findFirst()
@@ -118,7 +116,7 @@ public abstract class LTag<T> extends LContext<T> {
         List<LStack<T>> list = getContext().discover(name).toList();
         if (list.isEmpty()) return ItemStack.EMPTY;
         long index = System.currentTimeMillis() / 1500;
-        return list.get((int) (index % list.size())).getRepresentation();
+        return Objects.requireNonNull(list.get((int) (index % list.size())).getRepresentation());
     }
 
     @Override

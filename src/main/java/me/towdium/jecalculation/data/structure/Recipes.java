@@ -25,9 +25,9 @@ public class Recipes {
     public Recipes() {
         File file = new File(Utilities.config(), "records.json");
         CompoundTag nbt = Utilities.Json.read(file);
-        if (nbt == null) JustEnoughCalculation.logger.info("Failed to load default records at " + file + ".");
+        if (nbt == null) JustEnoughCalculation.logger.info("Failed to load default records at {}.", file);
         else {
-            JustEnoughCalculation.logger.info("Loading default records at " + file + ".");
+            JustEnoughCalculation.logger.info("Loading default records at {}.", file);
             deserialize(nbt);
         }
     }
@@ -45,7 +45,7 @@ public class Recipes {
                         try {
                             add(i, new Recipe((CompoundTag) r));
                         } catch (IllegalArgumentException e) {
-                            JustEnoughCalculation.logger.warn("Invalid recipe record :" + r);
+                            JustEnoughCalculation.logger.warn("Invalid recipe record :{}", r);
                         }
                     });
         });

@@ -6,12 +6,13 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public class PEdit implements CustomPacketPayload {
-    public static final Type<PEdit> TYPE = new Type<>(Identifier.fromNamespaceAndPath("jecalculation", "edit"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, PEdit> CODEC = StreamCodec.of(
+    public static final Type<@NotNull PEdit> TYPE = new Type<>(Identifier.fromNamespaceAndPath("jecalculation", "edit"));
+    public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull PEdit> CODEC = StreamCodec.of(
             PEdit::encode, PEdit::decode
     );
 
@@ -61,7 +62,7 @@ public class PEdit implements CustomPacketPayload {
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

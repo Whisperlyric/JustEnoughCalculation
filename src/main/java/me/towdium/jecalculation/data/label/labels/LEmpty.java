@@ -3,6 +3,7 @@ package me.towdium.jecalculation.data.label.labels;
 import me.towdium.jecalculation.data.label.ILabel;
 import me.towdium.jecalculation.gui.JecaGui;
 import net.minecraft.nbt.CompoundTag;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -11,12 +12,12 @@ public class LEmpty implements ILabel {
     public static final String IDENTIFIER = "empty";
 
     @Override
-    public boolean matches(Object l) {
+    public boolean matches(@NotNull Object l) {
         return l == this;
     }
 
     @Override
-    public void drawLabel(JecaGui gui, int xPos, int yPos, boolean center, boolean hand) {
+    public void drawLabel(@NotNull JecaGui gui, int xPos, int yPos, boolean center, boolean hand) {
     }
 
     @Nullable
@@ -26,17 +27,17 @@ public class LEmpty implements ILabel {
     }
 
     @Override
-    public ILabel increaseAmount() {
+    public @NotNull ILabel increaseAmount() {
         return this;
     }
 
     @Override
-    public ILabel decreaseAmount() {
+    public @NotNull ILabel decreaseAmount() {
         return this;
     }
 
     @Override
-    public ILabel multiply(float i) {
+    public @NotNull ILabel multiply(float i) {
         return this;
     }
 
@@ -46,7 +47,7 @@ public class LEmpty implements ILabel {
     }
 
     @Override
-    public ILabel setPercent(boolean p) {
+    public @NotNull ILabel setPercent(boolean p) {
         throw new UnsupportedOperationException();
     }
 
@@ -61,36 +62,36 @@ public class LEmpty implements ILabel {
     }
 
     @Override
-    public String getAmountString(boolean round) {
+    public @NotNull String getAmountString(boolean round) {
         return "0";
     }
 
     @Override
-    public String getDisplayName() {
+    public @NotNull String getDisplayName() {
         return "";
     }
 
     @Override
-    public void getToolTip(List<String> existing, boolean detailed) {
+    public void getToolTip(List<@NotNull String> existing, boolean detailed) {
     }
 
     @Override
-    public ILabel copy() {
+    public @NotNull ILabel copy() {
         return this;
     }
 
     @Override
-    public CompoundTag toNbt() {
+    public @NotNull CompoundTag toNbt() {
         return new CompoundTag();
     }
 
     @Override
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return IDENTIFIER;
     }
 
     @Override
-    public ILabel setAmount(long amount) {
+    public @NotNull ILabel setAmount(long amount) {
         return this;
     }
 }

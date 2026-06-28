@@ -10,7 +10,7 @@ public class Wrapper<T> {
     public T value;
     public Predicate<T> predicate = t -> true;
 
-    public Wrapper(T value) {
+    public Wrapper(@Nullable T value) {
         this.value = value;
     }
 

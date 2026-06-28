@@ -7,12 +7,13 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class PRecord implements CustomPacketPayload {
-    public static final Type<PRecord> TYPE = new Type<>(Identifier.fromNamespaceAndPath("jecalculation", "record"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, PRecord> CODEC = StreamCodec.of(
+    public static final Type<@NotNull PRecord> TYPE = new Type<>(Identifier.fromNamespaceAndPath("jecalculation", "record"));
+    public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull PRecord> CODEC = StreamCodec.of(
             PRecord::encode, PRecord::decode
     );
 
@@ -46,7 +47,7 @@ public class PRecord implements CustomPacketPayload {
     }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

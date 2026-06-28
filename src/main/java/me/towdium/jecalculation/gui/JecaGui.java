@@ -230,7 +230,7 @@ public class JecaGui extends AbstractContainerScreen<JecaGui.@NotNull JecaContai
             Minecraft.getInstance().setScreen(s);
             return true;
         }
-        if (Minecraft.getInstance().screen instanceof JecaGui gui && gui.preventRecipeScreen && Utilities.isRecipeScreen(screen)) {
+        if (screen != null && Minecraft.getInstance().screen instanceof JecaGui gui && gui.preventRecipeScreen && Utilities.isRecipeScreen(screen)) {
             gui.preventRecipeScreen = false;
             return true;
         }
@@ -238,12 +238,11 @@ public class JecaGui extends AbstractContainerScreen<JecaGui.@NotNull JecaContai
     }
 
     @Environment(EnvType.CLIENT)
-    public static int openGuiMath(@Nullable ItemStack is, int slot) {
+    public static void openGuiMath(@Nullable ItemStack is, int slot) {
         boolean ret = is == null && Controller.isServerActive();
         String s = "jecalculation.chat.server_mode";
         if (ret) getPlayer().sendSystemMessage(Component.translatable(s));
         else JecaGui.displayGui(new GuiMath(is, slot));
-        return ret ? 1 : 0;
     }
 
     @Environment(EnvType.CLIENT)
@@ -496,7 +495,7 @@ public class JecaGui extends AbstractContainerScreen<JecaGui.@NotNull JecaContai
 
         @Override
         public ItemStack quickMoveStack(Player player, int index) {
-            return null;
+            return ItemStack.EMPTY;
         }
 
         @Override

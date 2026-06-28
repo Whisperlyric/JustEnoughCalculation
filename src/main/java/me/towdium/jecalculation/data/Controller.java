@@ -60,7 +60,7 @@ public class Controller {
         Function<File, Recipes> read = f -> {
             CompoundTag nbt = Utilities.Json.read(f);
             if (nbt == null) {
-                JustEnoughCalculation.logger.warn("File " + f.getAbsolutePath() + " contains invalid records.");
+                JustEnoughCalculation.logger.warn("File {} contains invalid records.", f.getAbsolutePath());
                 return null;
             }
             return new Recipes(nbt);

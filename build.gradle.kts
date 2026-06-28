@@ -70,7 +70,6 @@ tasks.processResources {
 tasks.withType<JavaCompile> {
 	options.encoding = "UTF-8"
 	options.release.set(25)
-	options.compilerArgs.addAll(listOf("-Xlint:all", "-Xmaxwarns", "1000"))
 }
 
 java {

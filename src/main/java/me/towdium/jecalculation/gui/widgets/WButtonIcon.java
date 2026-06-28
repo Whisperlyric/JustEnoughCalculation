@@ -15,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class WButtonIcon extends WButton {
     protected Resource rNormal, rDisabled;
 
-    public WButtonIcon(int xPos, int yPos, int xSize, int ySize, Resource.ResourceGroup res, String name) {
+    public WButtonIcon(int xPos, int yPos, int xSize, int ySize, Resource.ResourceGroup res, @Nullable String name) {
         this(xPos, yPos, xSize, ySize, res.one, res.two, name);
     }
 

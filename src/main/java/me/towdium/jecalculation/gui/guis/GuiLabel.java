@@ -13,6 +13,7 @@ import me.towdium.jecalculation.utils.wrappers.Wrapper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import me.towdium.jecalculation.annotation.MethodsReturnNonnullByDefault;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
@@ -24,7 +25,7 @@ public class GuiLabel extends Gui {
     WContainer container = new WContainer();
     IPicker current;
     Consumer<ILabel> callback;
-    LoadingCache<Integer, IPicker> cache = CacheBuilder.newBuilder().build(
+    LoadingCache<@NotNull Integer, @NotNull IPicker> cache = CacheBuilder.newBuilder().build(
             new CacheLoader<>() {
                 @Override
                 public IPicker load(Integer i) {

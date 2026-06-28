@@ -6,6 +6,8 @@ import me.towdium.jecalculation.gui.widgets.IWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+import javax.annotation.Nullable;
+
 @Environment(EnvType.CLIENT)
 public interface IGui extends IContainer {
     default void onVisible(JecaGui gui) {
@@ -19,5 +21,5 @@ public interface IGui extends IContainer {
         return false;
     }
 
-    void setOverlay(IWidget w);
+    void setOverlay(@Nullable IWidget w);
 }

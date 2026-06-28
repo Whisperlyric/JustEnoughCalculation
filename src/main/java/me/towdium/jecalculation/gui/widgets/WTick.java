@@ -26,7 +26,7 @@ public class WTick extends WContainer {
         this(xPos, yPos, xSize, ySize, name, false, null);
     }
 
-    public WTick(int xPos, int yPos, int xSize, int ySize, @Nullable String name, boolean displayLabel, JecaGui.FontType font) {
+    public WTick(int xPos, int yPos, int xSize, int ySize, @Nullable String name, boolean displayLabel, @Nullable JecaGui.FontType font) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSize = xSize;
@@ -75,7 +75,7 @@ public class WTick extends WContainer {
         public boolean onDraw(JecaGui gui, int xMouse, int yMouse) {
             boolean result = super.onDraw(gui, xMouse, yMouse);
             if (displayLabel) {
-                gui.drawText(xPos + xSize + 4, yPos + ySize / 2 - font.getTextHeight() / 2 + 1, 999, font, name);
+                gui.drawText(xPos + xSize + 4, yPos + ySize / 2f - font.getTextHeight() / 2f + 1, 999, font, name);
             }
             return result;
         }
@@ -110,7 +110,7 @@ public class WTick extends WContainer {
             else res = WGT_BUTTON_S_N;
             gui.drawResourceContinuous(res, xPos, yPos, xSize, ySize, 5, 5, 5, 5);
             if (displayLabel) {
-                gui.drawText(xPos + xSize + 4, yPos + ySize / 2 - font.getTextHeight() / 2 + 1, 999, font, name);
+                gui.drawText(xPos + xSize + 4, yPos + ySize / 2f - font.getTextHeight() / 2f + 1, 999, font, name);
             }
             return hovered;
         }

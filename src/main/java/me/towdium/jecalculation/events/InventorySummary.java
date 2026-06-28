@@ -67,7 +67,7 @@ public class InventorySummary {
         return Objects.hash(amounts);
     }
 
-    private static class ItemAmount {
+    protected static class ItemAmount {
         ItemStack stack;
         int amount;
 

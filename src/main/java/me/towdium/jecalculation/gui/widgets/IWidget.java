@@ -24,7 +24,7 @@ public interface IWidget {
     }
 
     /**
-     * This function is basically an not cancellable mouse click event before real mouse click event,
+     * This function is basically a not cancellable mouse click event before real mouse click event,
      * when widgets check if it should be focused, if mouse not in, then give up focus
      */
     default void onMouseFocused(JecaGui gui, int xMouse, int yMouse, int button) {
