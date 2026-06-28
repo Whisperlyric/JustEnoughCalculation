@@ -58,10 +58,17 @@ public class JustEnoughCalculation {
 
     @Environment(EnvType.CLIENT)
     private void registerClientEvents() {
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            ILabel.initClient();
-            Controller.loadFromLocal();
-            Client.GUI_HANDLER = new GuiScreenEventHandler();
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> Client.GUI_HANDLER = new GuiScreenEventHandler());
+        boolean[] initialized = {false};
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (initialized[0]) return;
+            try {
+                ILabel.initClient();
+                Controller.loadFromLocal();
+                initialized[0] = true;
+            } catch (IllegalStateException | NullPointerException e) {
+                // Item components not bound yet; retry on next tick
+            }
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

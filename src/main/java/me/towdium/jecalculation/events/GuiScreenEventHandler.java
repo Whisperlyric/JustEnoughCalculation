@@ -33,7 +33,7 @@ public class GuiScreenEventHandler {
 
     private void registerEvents() {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
-            if (screen instanceof AbstractContainerScreen && client.player != null) {
+            if (isScreenValidForOverlay(screen) && client.player != null) {
                 overlayHandler = new GuiScreenOverlayHandler(client.player.getInventory());
                 gui = new JecaGui(null, false, overlayHandler, true);
                 gui.init(screen.width, screen.height);
