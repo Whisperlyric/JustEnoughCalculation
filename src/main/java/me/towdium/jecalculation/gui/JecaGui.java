@@ -48,12 +48,12 @@ import static me.towdium.jecalculation.utils.Utilities.getPlayer;
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class JecaGui extends AbstractContainerScreen<JecaGui.@NotNull JecaContainer> {
+    private static final KeyMapping.Category JECA_KEY_CATEGORY =
+            KeyMapping.Category.register(Identifier.fromNamespaceAndPath(JustEnoughCalculation.MODID, "key.category"));
     public static final KeyMapping keyOpenGuiCraft = new KeyMapping(
-            "jecalculation.key.gui_craft", GLFW.GLFW_KEY_UNKNOWN,
-            KeyMapping.Category.register(Identifier.fromNamespaceAndPath(JustEnoughCalculation.MODID, "key.category")));
+            "jecalculation.key.gui_craft", GLFW.GLFW_KEY_UNKNOWN, JECA_KEY_CATEGORY);
     public static final KeyMapping keyOpenGuiMath = new KeyMapping(
-            "jecalculation.key.gui_math", GLFW.GLFW_KEY_UNKNOWN,
-            KeyMapping.Category.register(Identifier.fromNamespaceAndPath(JustEnoughCalculation.MODID, "key.category")));
+            "jecalculation.key.gui_math", GLFW.GLFW_KEY_UNKNOWN, JECA_KEY_CATEGORY);
     public static final int COLOR_GUI_GREY = 0xFFA1A1A1;
     public static final int COLOR_TEXT_RED = 0xFF0000;
     public static final int COLOR_TEXT_GREY = 0x404040;
